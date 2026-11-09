@@ -1,0 +1,11 @@
+import {useState} from 'react';import {useStore} from '../store/useStore';import {usePrimary} from '../hooks';import {questions} from '../data/questions';import {Link} from 'react-router-dom';
+export default function Practice(){const {exam}=usePrimary();const {log,savedItems,toggleSavedItem}=useStore();const [i,setI]=useState(0);const [pick,setPick]=useState(null);const [done,setDone]=useState(false);const [start,setStart]=useState(Date.now());
+ if(!exam)return <div className="card text-center"><p>Select an exam to practise.</p><Link to="/exams" className="btn mt-3">Explore exams</Link></div>;
+ const set=questions[exam.id]||questions.default;const q=set[i%set.length];
+ const submit=()=>{setDone(true);log({exam:exam.id,subject:q.subject,topic:q.topic,correct:pick===q.a,seconds:Math.round((Date.now()-start)/1000)});};
+ const next=()=>{setI(i+1);setPick(null);setDone(false);setStart(Date.now())};
+ return <div><h1 className="text-2xl font-bold">Daily practice · {exam.name}</h1>{!questions[exam.id]&&<p className="text-xs text-amber-700">No dedicated bank for this exam yet – showing general aptitude demo questions.</p>}
+ <div className="card mt-5"><span className="chip">{q.subject} · {q.topic}</span><p className="mt-3 font-medium">{q.q}</p>
+ <div className="mt-4 space-y-2" role="radiogroup">{q.o.map((o,k)=><button key={k} disabled={done} onClick={()=>setPick(k)} role="radio" aria-checked={pick===k} className={`w-full rounded-xl border px-4 py-3 text-left text-sm ${done&&k===q.a?'border-green-500 bg-green-50':done&&pick===k?'border-red-400 bg-red-50':pick===k?'border-brand-500 bg-brand-50':'border-slate-200 hover:bg-slate-50'}`}>{o}</button>)}</div>
+ {done&&<p className="mt-4 rounded-xl bg-slate-50 p-3 text-sm"><b>{pick===q.a?'Correct. ':'Incorrect. '}</b>{q.e}</p>}
+ <div className="mt-4 flex flex-wrap gap-2">{done?<button className="btn" onClick={next}>Next question</button>:<button className="btn" disabled={pick===null} onClick={submit}>Submit answer</button>}<button className="btn-ghost" onClick={()=>toggleSavedItem({id:q.id,type:'question',title:q.q})}>{savedItems.some(item=>item.id===q.id&&item.type==='question')?'Remove saved question':'Save question'}</button></div></div></div>;}

@@ -1,0 +1,8 @@
+export const syllabuses={
+ 'jee-main':{Physics:['Mechanics','Thermodynamics','Electrodynamics','Optics','Modern Physics'],Chemistry:['Physical Chemistry','Organic Chemistry','Inorganic Chemistry'],Mathematics:['Algebra','Calculus','Coordinate Geometry','Trigonometry','Probability']},
+ 'neet-ug':{Physics:['Mechanics','Thermodynamics','Electrostatics','Optics','Modern Physics'],Chemistry:['Physical Chemistry','Organic Chemistry','Inorganic Chemistry'],Biology:['Cell Biology','Genetics','Human Physiology','Plant Physiology','Ecology']},
+ 'ssc-cgl':{Quantitative:['Number System','Percentage','Profit & Loss','Algebra','Geometry','Trigonometry'],Reasoning:['Analogies','Series','Coding-Decoding','Syllogism'],English:['Grammar','Vocabulary','Comprehension'],'General Awareness':['History','Polity','Geography','Economy','Current Affairs']},
+ 'ibps-po':{Quantitative:['Data Interpretation','Simplification','Number Series','Arithmetic'],Reasoning:['Puzzles','Seating Arrangement','Syllogism','Inequality'],English:['Reading Comprehension','Cloze Test','Error Spotting'],'Banking Awareness':['Banking Basics','RBI & Policies','Current Affairs']},
+ 'upsc-civil-services-exam':{'GS I':['History','Geography','Society'],'GS II':['Polity','Governance','International Relations'],'GS III':['Economy','Environment','Science & Tech','Security'],'GS IV':['Ethics','Integrity','Aptitude'],CSAT:['Comprehension','Reasoning','Basic Numeracy']},
+};
+export const fallbackSyllabus=()=>({'Quantitative Aptitude':['Arithmetic','Algebra','Data Interpretation'],Reasoning:['Verbal Reasoning','Non-Verbal Reasoning'],English:['Grammar','Comprehension'],'General Knowledge':['Static GK','Current Affairs']});

@@ -1,0 +1,9 @@
+import {useParams,Link} from 'react-router-dom';import {getExam,allExams} from '../services/examService';import {useStore} from '../store/useStore';import {syllabuses,fallbackSyllabus} from '../data/syllabuses';import toast from 'react-hot-toast';
+export default function ExamDetail(){const {examId}=useParams();const {custom,addExam,selected}=useStore();const e=getExam(examId,custom);
+ if(!e)return <div className="p-16 text-center">Exam not found. <Link className="text-brand-600 underline" to="/exams">Back to catalogue</Link></div>;
+ const syl=e.syllabus||syllabuses[e.id]||fallbackSyllabus();const related=allExams(custom).filter(x=>x.category===e.category&&x.id!==e.id).slice(0,4);
+ return <div className="mx-auto max-w-4xl px-4 py-8"><span className="chip">{e.categoryLabel}</span><h1 className="mt-2 text-3xl font-bold">{e.name}</h1><p className="text-slate-600">{e.org} · {e.level} · Qualification: {e.qualification}</p>
+ <p className="mt-3 rounded-xl bg-amber-50 p-3 text-sm text-amber-800">{e.userAdded?'User added / Unverified.':'Demo content – not officially verified.'} Check the official notification for eligibility, pattern and dates.</p>
+ <button className="btn mt-4" disabled={selected.includes(e.id)} onClick={()=>{addExam(e.id);toast.success('Added to My Exams')}}>{selected.includes(e.id)?'In My Exams':'Add to My Exams'}</button>
+ <h2 className="mt-8 text-lg font-semibold">Subjects & syllabus (illustrative)</h2><div className="mt-3 grid gap-3 sm:grid-cols-2">{Object.entries(syl).map(([s,t])=><div key={s} className="card"><b>{s}</b><ul className="mt-2 list-inside list-disc text-sm text-slate-600">{t.map(x=><li key={x}>{x}</li>)}</ul></div>)}</div>
+ <h2 className="mt-8 text-lg font-semibold">Related exams</h2><div className="mt-3 flex flex-wrap gap-2">{related.map(r=><Link key={r.id} className="chip py-2" to={`/exams/${r.id}`}>{r.name}</Link>)}</div></div>;}
