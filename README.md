@@ -11,6 +11,10 @@ npm run dev
 
 Run `npm run build` to create the production bundle.
 
+## Deploy to Vercel
+
+The project is configured for Vercel's Vite preset. Use `npm run build` as the build command and `dist` as the output directory. The Vercel rewrite configuration supports direct navigation to client-side routes.
+
 ## Student workspace
 
 The authenticated workspace is available at `/app` and includes:
