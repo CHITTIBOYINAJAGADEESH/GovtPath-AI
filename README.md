@@ -66,15 +66,7 @@ npm run preview -- --port 4173
 ## Database & pgAdmin 4 Access
 - **Database**: `govtpath_db`
 - **Host**: `127.0.0.1` | **Port**: `5432`
-- **User**: `postgres` | **Password**: `jagga2527`
+- **User**: `postgres` | **Password**: `YOUR_PASSWORD`
 - Open **pgAdmin 4**, connect to `PostgreSQL 18`, and expand `Databases -> govtpath_db -> Schemas -> public -> Tables` to inspect all 28 tables.
 
-## Default Credentials
-- **Super Administrator**:
-  - Email: `jagadeeshchittiboyina07@gmail.com`
-  - Password: `jagga12`
-  - Role: `SUPER_ADMIN`
-- **Student / Aspirant**:
-  - Email: `rahul.aspirant@gmail.com`
-  - Password: `aspirant123`
-  - Role: `STUDENT`
+
