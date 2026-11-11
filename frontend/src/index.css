@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-slate-50 text-slate-800 antialiased;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+:focus-visible {
+  outline: 2px solid #6955E8;
+  outline-offset: 2px;
+}
+
+@layer components {
+  /* Student portal standard classes */
+  .card {
+    @apply rounded-2xl border border-slate-200 bg-white p-5 shadow-sm;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-600 active:scale-[.98] disabled:opacity-50;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50;
+  }
+  .input {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100;
+  }
+  .chip {
+    @apply rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700;
+  }
+
+  /* Admin design system classes */
+  .admin-card {
+    @apply rounded-2xl border border-admin-border bg-white p-5 shadow-admin-card transition-all duration-200 hover:shadow-admin-hover;
+  }
+  .admin-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-admin-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#5642d4] hover:shadow-md active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .admin-btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-admin-secondary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#3466d6] active:scale-[0.98] disabled:opacity-50;
+  }
+  .admin-btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-admin-border bg-white px-4 py-2.5 text-sm font-semibold text-admin-text transition-all duration-200 hover:bg-[#F7F8FC] hover:border-slate-300 active:scale-[0.98] disabled:opacity-50;
+  }
+  .admin-btn-danger {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-admin-error/10 text-admin-error border border-admin-error/20 px-4 py-2.5 text-sm font-semibold transition-all duration-200 hover:bg-admin-error hover:text-white active:scale-[0.98] disabled:opacity-50;
+  }
+  .admin-input {
+    @apply w-full rounded-xl border border-admin-border bg-white px-3.5 py-2.5 text-sm text-admin-text placeholder-admin-muted transition duration-150 focus:border-admin-primary focus:outline-none focus:ring-2 focus:ring-admin-primary/20 disabled:bg-slate-50 disabled:cursor-not-allowed;
+  }
+  .admin-select {
+    @apply w-full rounded-xl border border-admin-border bg-white px-3.5 py-2.5 text-sm text-admin-text transition duration-150 focus:border-admin-primary focus:outline-none focus:ring-2 focus:ring-admin-primary/20;
+  }
+  .admin-badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

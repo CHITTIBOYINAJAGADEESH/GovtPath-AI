@@ -1,29 +1,80 @@
-# GovtPath AI Frontend
+# GovtPath AI – Full-Stack Competitive Examination Platform
 
-A responsive React frontend demo for exam preparation, student planning, practice, and performance tracking.
+GovtPath AI is an enterprise all-in-one preparation and administration platform for Indian Government and Competitive Examinations (UPSC, JEE, NEET, SSC, RRB, Banking, State PSCs, and more).
 
-## Run locally
+## Project Architecture
 
-```sh
-npm install
-npm run dev
+```
+govtpath-ai/
+├── backend/                              # Django 6.1 + DRF + PostgreSQL 18
+│   ├── apps/                             # Modular Domain Apps
+│   │   ├── accounts/                     # Custom User, Roles & JWT Auth
+│   │   ├── exams/                        # Exam Catalog & Approvals
+│   │   ├── syllabus/                     # Syllabus Hierarchies
+│   │   ├── questions/                    # Question Bank
+│   │   ├── mock_tests/                   # Mock Test Engine
+│   │   ├── roadmaps/                     # AI Roadmaps
+│   │   ├── recruitment/                  # Govt Job Notices
+│   │   ├── audit/                        # Audit Logging
+│   │   └── core/                         # Core Stats & Seeding
+│   ├── govtpath_backend/                 # Settings & Root Routing
+│   └── manage.py
+│
+└── frontend/                             # React 18 + Vite + Tailwind CSS
+    ├── src/
+    │   ├── admin/                        # Administrative Management Portal (24+ modules)
+    │   ├── api/                          # Axios API Client with JWT Bearer Interceptors
+    │   ├── components/                   # Reusable UI & Layout Components
+    │   ├── pages/                        # Student Portal Pages
+    │   ├── services/                     # Synchronized Service Layer
+    │   └── store/                        # Zustand Global State
+    ├── package.json
+    └── tailwind.config.js
 ```
 
-Run `npm run build` to create the production bundle.
+## Quick Start Guide
 
-## Deploy to Vercel
+### 1. Backend (Django + PostgreSQL)
+```bash
+cd backend
 
-The project is configured for Vercel's Vite preset. Use `npm run build` as the build command and `dist` as the output directory. The Vercel rewrite configuration supports direct navigation to client-side routes.
+# Apply database migrations
+python manage.py migrate
 
-## Student workspace
+# Seed initial examinations, questions, mock tests, and admin
+python manage.py seed_data
 
-The authenticated workspace is available at `/app` and includes:
+# Run development server (runs on port 8000)
+python manage.py runserver 127.0.0.1:8000
+```
 
-- Dashboard, exam exploration, and My Examinations.
-- AI Roadmap and Syllabus & Learning.
-- Daily Practice, Mock Tests, Results, and Analytics.
-- AI Tutor, Study Planner, Government Jobs, Saved Items, and Settings.
+### 2. Frontend (React + Vite)
+```bash
+cd frontend
 
-The login and registration pages use simulated authentication. Student profile, selected exams, study preferences, progress, practice activity, test attempts, saved items, planner tasks, and tutor chat history persist in the browser through the Zustand store.
+# Install dependencies
+npm install
 
-Catalogue and question-bank entries are representative demo data, not official or comprehensive exam information. Mock tests and tutor responses are local simulations. Job pages link to official portals but do not claim to show live recruitment notices.
+# Start development server (runs on port 5173)
+npm run dev
+
+# Or build and preview production bundle
+npm run build
+npm run preview -- --port 4173
+```
+
+## Database & pgAdmin 4 Access
+- **Database**: `govtpath_db`
+- **Host**: `127.0.0.1` | **Port**: `5432`
+- **User**: `postgres` | **Password**: `jagga2527`
+- Open **pgAdmin 4**, connect to `PostgreSQL 18`, and expand `Databases -> govtpath_db -> Schemas -> public -> Tables` to inspect all 28 tables.
+
+## Default Credentials
+- **Super Administrator**:
+  - Email: `jagadeeshchittiboyina07@gmail.com`
+  - Password: `jagga12`
+  - Role: `SUPER_ADMIN`
+- **Student / Aspirant**:
+  - Email: `rahul.aspirant@gmail.com`
+  - Password: `aspirant123`
+  - Role: `STUDENT`
