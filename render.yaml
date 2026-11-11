@@ -1,0 +1,27 @@
+databases:
+  - name: govtpath-postgres
+    databaseName: govtpath_db
+    user: postgres
+    plan: free
+    region: oregon
+
+services:
+  - type: web
+    name: govtpath-backend
+    runtime: python
+    plan: free
+    region: oregon
+    rootDir: backend
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn govtpath_backend.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: govtpath-postgres
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"

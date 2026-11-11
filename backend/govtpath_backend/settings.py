@@ -1,17 +1,19 @@
 """
 Django settings for govtpath_backend project.
 GovtPath AI - Full-Stack Competitive Examination Preparation & Administration Platform.
+Configured for local development and Render production deployment.
 """
 
 from pathlib import Path
 from datetime import timedelta
 import os
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-govtpath-ai-prod-ready-secret-key-2026'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-govtpath-ai-prod-ready-secret-key-2026')
 
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -74,17 +77,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'govtpath_backend.wsgi.application'
 
-# PostgreSQL Database Configuration
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'govtpath_db',
-        'USER': 'postgres',
-        'PASSWORD': 'jagga2527',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+# PostgreSQL Database Configuration (Render Managed PostgreSQL + Local Fallback)
+if os.environ.get('DATABASE_URL'):
+    DATABASES = {
+        'default': dj_database_url.config(
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'govtpath_db',
+            'USER': 'postgres',
+            'PASSWORD': 'jagga2527',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -100,6 +111,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
